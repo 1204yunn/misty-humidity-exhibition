@@ -1,0 +1,40 @@
+:root { color-scheme: light; font-family: "Microsoft JhengHei", system-ui, sans-serif; color: #294f60; background: #b2ceda; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100svh; background: radial-gradient(ellipse at 20% 10%, #ecf5f6, transparent 60%), radial-gradient(ellipse at 90% 75%, #8eb5c5, transparent 65%); }
+main { width: min(100%, 580px); margin: auto; padding: max(36px, env(safe-area-inset-top)) 20px max(24px, env(safe-area-inset-bottom)); }
+header { padding: 12px 4px 30px; }
+h1 { font-size: clamp(28px, 8vw, 38px); font-weight: 400; letter-spacing: 6px; margin: 14px 0; }
+h2, legend { font-size: 17px; font-weight: 500; line-height: 1.6; }
+p { line-height: 1.8; }
+.eyebrow, footer { font-size: 10px; letter-spacing: 2px; }
+.glass, dialog { padding: 22px; border: 1px solid #ffffffb0; border-radius: 24px; background: #f0f8fc99; -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); box-shadow: 0 12px 40px #426f8018; }
+.glass { margin-bottom: 22px; }
+button, textarea, a { font: inherit; }
+button, #download-link { min-height: 48px; padding: 12px 16px; border: 1px solid #aac6d1; border-radius: 14px; background: #ffffff9c; color: #294f60; cursor: pointer; touch-action: manipulation; }
+button:hover { background: #fff; }
+button:disabled { opacity: .5; cursor: default; }
+button.primary { background: #426f80; border-color: #426f80; color: white; }
+button:focus-visible, textarea:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid #285f7a; outline-offset: 3px; }
+.photo-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.photo-actions button { flex: 1 1 140px; }
+.hint { font-size: 13px; color: #456572; }
+.photo-frame { aspect-ratio: 4 / 5; background: #d6e6ea; border: 1px solid #ffffffaa; border-radius: 16px; overflow: hidden; display: grid; place-items: center; }
+.photo-frame span { font-size: 13px; letter-spacing: 1px; padding: 16px; }
+.photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo-frame img { object-fit: contain; min-width: 0; min-height: 0; }
+.story-navigation { margin-bottom: 14px; }
+.story-navigation a { display: inline-flex; align-items: center; min-height: 48px; color: #294f60; }
+textarea { display: block; resize: vertical; width: 100%; min-height: 120px; border: 1px solid #aac6d1; border-radius: 14px; padding: 14px; line-height: 1.8; background: #ffffffa6; color: #294f60; }
+.counter { text-align: right; margin-top: 6px; }
+fieldset { min-width: 0; border: 0; padding: 0; margin: 24px 0; }
+legend { margin-bottom: 10px; }
+.choice { display: flex; align-items: center; min-height: 48px; gap: 10px; }
+input[type="radio"] { width: 20px; height: 20px; accent-color: #426f80; }
+#preview-button, #result > button { display: block; width: 100%; margin-top: 12px; }
+#artwork-preview { display: block; width: 100%; height: auto; border-radius: 12px; margin: 18px 0; }
+#download-link { display: inline-block; text-align: center; }
+footer { text-align: center; padding: 20px 0; }
+dialog { width: min(440px, calc(100% - 32px)); color: #294f60; background: #e9f3f7; }
+dialog::backdrop { background: #193f5599; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+[hidden] { display: none !important; }
+@media (max-width: 360px) { main { padding-inline: 12px; } .glass { padding: 16px; } }

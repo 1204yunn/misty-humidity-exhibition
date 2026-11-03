@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>有點濕濕的｜故事留言牆</title>
+  <link rel="stylesheet" href="board/style.css?v=20261102-round3">
+  <link rel="stylesheet" href="board/glass.css?v=20261102-round3">
+</head>
+<body>
+  <svg class="image-filters" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="0" height="0">
+    <defs>
+      <filter id="mist-duotone" color-interpolation-filters="sRGB">
+        <feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0 0 0 1 0"/>
+        <!-- Shadows #303743; light tones #BBC3D0: cool blue-gray, without a green cast. -->
+        <feComponentTransfer>
+          <feFuncR type="table" tableValues="0.188235 0.733333"/>
+          <feFuncG type="table" tableValues="0.215686 0.764706"/>
+          <feFuncB type="table" tableValues="0.262745 0.815686"/>
+        </feComponentTransfer>
+      </filter>
+    </defs>
+  </svg>
+  <main id="mist-board" aria-label="霧中的故事留言牆">
+    <div class="fog fog-one" aria-hidden="true"></div>
+    <div class="fog fog-two" aria-hidden="true"></div>
+    <header class="board-heading">
+      <img src="interactive/assets/logo.png" alt="有點濕濕的" id="brand-logo">
+    </header>
+    <div class="board-glass" aria-hidden="true"><div class="condensation-layer"></div><div class="drip-layer"></div></div>
+    <div id="photo-layer"></div>
+    <div id="message-layer"></div>
+    <aside id="board-controls" hidden>
+      <section id="sync-panel" aria-label="即時投稿連線狀態">
+        <p id="sync-status" role="status">正在連接 Firebase…</p>
+        <p id="sync-debug" role="status" style="font-size:12px;white-space:pre-line;overflow-wrap:anywhere"></p>
+      </section>
+      <div id="upload-panel">
+        <input type="file" id="photo-upload" accept="image/*" hidden>
+        <button id="upload-button" type="button">本機預覽照片</button>
+      </div>
+    </aside>
+    <div class="board-footer">EVERY MEMORY LEAVES A TRACE</div>
+    <button id="audio-start" type="button" aria-label="播放霧中的聲音" aria-pressed="false" title="播放霧中的聲音">♪</button>
+  </main>
+  <dialog id="story-reader" class="story-reader" aria-labelledby="story-reader-title" aria-describedby="story-reader-body">
+    <section class="story-reader-panel">
+      <button id="story-reader-close" class="story-reader-close" type="button" aria-label="&#38364;&#38281;&#25925;&#20107;">&times;</button>
+      <p class="story-reader-eyebrow">A LITTLE MIST, A LITTLE MEMORY</p>
+      <h2 id="story-reader-title"></h2>
+      <p id="story-reader-body"></p>
+    </section>
+  </dialog>
+  <script src="board/script.js?v=20261102-round3"></script>
+  <script src="board/audio.js?v=20261102-original-audio3"></script>
+  <script src="board/glass.js?v=20261102-round3"></script>
+  <script>
+    const options = new URLSearchParams(location.search);
+    const localDebug = ["127.0.0.1", "localhost", "[::1]"].includes(location.hostname);
+    document.getElementById("board-controls").hidden = !(localDebug || options.has("controls"));
+    document.getElementById("upload-panel").hidden = !options.has("demo");
+    // Demo never loads Firebase or sends submissions.
+    if (!options.has("demo")) {
+      const sync = document.createElement("script");
+      sync.type = "module";
+      sync.src = "board/firebase.js";
+      sync.onerror = () => {
+        document.getElementById("sync-status").textContent = "Firebase 模組載入失敗，請查看瀏覽器 Console 與 Network。";
+        console.error("[留言牆] Firebase 模組載入失敗");
+      };
+      document.body.appendChild(sync);
+    } else {
+      document.getElementById("sync-status").textContent = "本機示範模式，不連線 Firebase";
+    }
+  </script>
+</body>
+</html>
+
+

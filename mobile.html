@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1d2184">
+  <title>有點濕濕的｜留下一句濕濕的話</title>
+  <link rel="stylesheet" href="board/mobile.css">
+  <link rel="stylesheet" href="assets/story-visual.css?v=20261030-cloud-pending">
+  <script type="module" src="board/mobile.js?v=20261030-cloud-pending"></script>
+</head>
+<body>
+  <main>
+    <button id="back-button" class="story-back" type="button" aria-label="返回上一步"><span aria-hidden="true">←</span><span id="back-label">返回</span></button>
+    <header>
+      <p class="eyebrow">A LITTLE MIST, A LITTLE MEMORY</p>
+      <h1><img class="story-logo" src="interactive/assets/logo.png" width="3508" height="2481" alt="有點濕濕的" decoding="async"></h1>
+      <p>留下一張照片，也留下一點心情。</p>
+    </header>
+
+    <form id="creation-form" class="glass">
+      <h2 id="entry-title">留下一句濕濕的話</h2>
+      <p id="photo-status" class="hint" role="status">正在確認擦霧拍攝的照片…</p>
+      <div id="photo-frame" class="photo-frame">
+        <span id="photo-placeholder">把今天的濕度，留在這裡。</span>
+        <img id="photo-preview" alt="擦霧拍攝的完整照片" hidden>
+      </div>
+
+      <label class="entry-label" for="message">主要留言<span class="field-note">必填</span></label>
+      <textarea id="message" rows="2" required placeholder="用一句話，留下此刻。" aria-describedby="message-help character-count"></textarea>
+      <p id="message-help" class="hint field-help">最多 12 字，包含標點符號與空格。</p>
+      <p id="character-count" class="hint counter" aria-live="polite">0 / 12</p>
+
+      <label class="entry-label" for="story">這句話背後的故事<span class="field-note">選填</span></label>
+      <textarea id="story" rows="5" placeholder="如果願意，也說說這句話背後的故事。" aria-describedby="story-help story-count"></textarea>
+      <p id="story-help" class="hint field-help">最多 80 字，包含標點符號、空格與換行。</p>
+      <p id="story-count" class="hint counter" aria-live="polite">0 / 80</p>
+
+      <fieldset>
+        <legend>這個片刻，留給誰？</legend>
+        <label class="choice"><input id="public-consent" type="checkbox">我同意將照片、主要留言與完整故事公開於展覽留言牆。</label>
+        <p class="hint">預設不公開；未勾選時，作品只儲存在此瀏覽器，不會上傳。</p>
+        <p id="publication-notice" class="hint">公開投稿須由展方先確認受控測試設定。送出後仍須審核，通過後才會出現在留言牆。</p>
+      </fieldset>
+
+      <button id="submit-button" class="primary" type="submit" disabled>讓濕意留下來</button>
+      <p id="editor-status" class="hint" role="status" aria-live="polite">請先完成擦霧拍照，並留下一句話。</p>
+      <div id="local-copy" class="hint" hidden>
+        <p>作品尚未公開，你仍可先下載這一刻。</p>
+        <a id="local-download-link" download="有點濕濕的-我的作品.png">下載這一刻 PNG</a>
+        <p id="local-save-status" role="status"></p>
+      </div>
+    </form>
+
+    <section id="result" class="glass" hidden aria-labelledby="result-title">
+      <h2 id="result-title" class="visually-hidden" tabindex="-1">作品預覽</h2>
+      <figure class="story-preview-card">
+        <img id="artwork-preview" alt="照片原始比例的長方形預覽">
+        <figcaption class="artwork-caption">
+          <p id="artwork-message"></p>
+          <p id="artwork-story" hidden></p>
+        </figcaption>
+      </figure>
+      <p id="completion-status" class="hint" role="status"></p>
+      <button id="save-button" class="primary" type="button">下載這一刻</button>
+      <p id="save-status" class="hint" role="status"></p>
+      <p class="hint">手機可依分享選單儲存；若使用下載，請查看瀏覽器的下載項目。</p>
+      <a id="download-link" hidden download="有點濕濕的-我的作品.png">下載作品 PNG</a>
+    </section>
+
+    <footer>EVERY MEMORY LEAVES A TRACE</footer>
+  </main>
+
+</body>
+</html>

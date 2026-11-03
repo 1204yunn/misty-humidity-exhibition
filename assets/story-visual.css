@@ -1,0 +1,67 @@
+/* Only loaded by the root story page; shared pages keep their existing styles. */
+:root { color: #1d2184; background: #fff; }
+/* One complete artwork, fitted to both dimensions without cropping or stretching.
+   Its size follows the content-sized body; it never sets the page height. */
+body { background-color: #fff; background-image: url("visual-art.png?v=20261030-whole-art"); background-position: center top; background-size: contain; background-repeat: no-repeat; }
+main { width: min(52%, 400px); padding: max(32px, env(safe-area-inset-top)) 0 max(24px, env(safe-area-inset-bottom)); }
+header { padding: 0 0 48px; margin: 0; color: #1d2184; }
+header::after { content: none; }
+/* Crop only the logo file's empty transparent margins, keeping the mark intact. */
+header h1 { position: relative; width: min(100%, 260px); aspect-ratio: 2769 / 773; overflow: hidden; margin: 0; line-height: 0; letter-spacing: normal; }
+.story-logo { position: absolute; left: -13.7234%; top: -110.4787%; display: block; width: 126.6883%; max-width: none; height: auto; object-fit: contain; filter: brightness(0) saturate(100%) invert(14%) sepia(71%) saturate(2935%) hue-rotate(235deg) brightness(88%) contrast(108%); }
+header p:last-child { margin: 48px 0 0; font-size: 14px; letter-spacing: .08em; }
+.eyebrow { margin: 0 0 24px; font-size: 9px; letter-spacing: .16em; line-height: 1.8; }
+.glass { background: transparent; border: 0; border-radius: 0; padding: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+h2, legend { color: #1d2184; font-weight: 600; letter-spacing: .05em; }
+/* Keep small text legible where a fine stroke reaches the center, without
+   placing an opaque card over the artwork. */
+header p, h2, legend, .hint, .choice, footer { text-shadow: 0 0 2px #fff, 0 0 4px #fff, 0 0 6px #fff; }
+.glass > h2:first-child { margin: 0 0 12px; padding: 0; border: 0; }
+button, #download-link { border-color: #b5b5b6; border-radius: 3px; background: #fff; color: #1d2184; }
+button:hover { background: #eefaff; }
+button.primary { background: #1d2184; border-color: #1d2184; color: #fff; }
+button.primary:hover { background: #292eb0; }
+button.primary { transition: background-color .2s ease, transform .2s ease; }
+button.primary:active:not(:disabled) { transform: translateY(1px); }
+button.primary:disabled { opacity: 1; background: #8e90c2; border-color: #8e90c2; }
+button:focus-visible, textarea:focus-visible, a:focus-visible, input:focus-visible { outline-color: #00b0e4; }
+.hint { color: #626270; }
+.photo-frame { background: #f4f4f5; border: 1px solid #b5b5b6; border-radius: 0; }
+.photo-frame span { color: #1d2184; }
+textarea { border-color: #b5b5b6; border-radius: 0; background: #fff; color: #1d2184; font-size: 16px; }
+textarea::placeholder { color: #737380; }
+input[type="radio"] { accent-color: #1d2184; }
+input[type="checkbox"] { flex: 0 0 20px; width: 20px; height: 20px; margin: 4px 0 0; accent-color: #1d2184; }
+.choice { align-items: flex-start; line-height: 1.8; }
+.story-back { display: inline-flex; gap: 8px; align-items: center; min-height: 44px; padding: 6px 0; margin: 0 0 20px; border: 0; background: transparent; color: #626270; font-size: 14px; }
+.story-back span:first-child { font-size: 24px; }
+.story-back:hover { background: transparent; color: #1d2184; }
+.entry-label { display: block; margin: 24px 0 10px; color: #1d2184; font-size: 17px; font-weight: 600; }
+.field-note { display: inline-block; margin-left: 8px; color: #626270; font-size: 12px; font-weight: 400; }
+.field-help { margin: 8px 0 0; }
+#message { min-height: 88px; }
+#story { min-height: 160px; }
+#submit-button { display: block; width: 100%; min-height: 48px; margin-top: 20px; }
+.status-error { color: #87423d; }
+.artwork-caption { width: 100%; }
+#artwork-message { margin: 0; color: #1d2184; font-size: 18px; line-height: 1.8; font-weight: 600; text-align: center; white-space: pre-wrap; overflow-wrap: anywhere; }
+.artwork-caption #artwork-story { margin-top: 16px; color: #626270; }
+#completion-status { text-align: center; }
+[aria-disabled="true"] { pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { button.primary { transition: none; } }
+fieldset { border-top: 1px solid #b5b5b6; padding-top: 16px; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.glass > .visually-hidden:first-child { margin: -1px; }
+.story-preview-card { display: flex; flex-direction: column; align-items: center; gap: 24px; margin: 0 0 24px; padding: clamp(16px, 4vw, 28px); background: #fff; border: 1px solid #e5e5e9; border-radius: 8px; box-shadow: none; }
+#artwork-preview { display: block; flex: none; width: min(100%, 280px); height: auto; aspect-ratio: auto; object-fit: contain; object-position: center; border-radius: 0; margin: 0; }
+#artwork-story { width: 100%; margin: 0; color: #1d2184; font-size: 16px; line-height: 1.8; text-align: center; white-space: pre-wrap; overflow-wrap: anywhere; }
+footer { padding: 24px 0; background: transparent; color: #1d2184; font-size: 9px; line-height: 1.8; }
+dialog { border: 1px solid #b5b5b6; border-radius: 4px; background: #fff; color: #1d2184; }
+dialog::backdrop { background: #1d218480; }
+@media (min-width: 700px) {
+  main { padding-top: max(40px, env(safe-area-inset-top)); }
+  header h1 { width: 280px; }
+}
+@media (max-width: 360px) {
+  .glass { padding: 0; }
+}

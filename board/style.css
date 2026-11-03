@@ -1,0 +1,129 @@
+﻿* { margin: 0; padding: 0; box-sizing: border-box; }
+body { overflow: hidden; font-family: "Microsoft JhengHei", "PingFang TC", sans-serif; background: #D9DADD; }
+#mist-board {
+  position: relative; width: 100vw; height: 100vh; height: 100dvh;
+  overflow: hidden; isolation: isolate;
+  background: radial-gradient(ellipse at 25% 30%, #CDD0D5, transparent 55%),
+    radial-gradient(ellipse at 80% 70%, #AEB4BC, transparent 65%), #BFC4C9;
+}
+#mist-board::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  /* Dim only the background artwork; photos, captions and logo keep their brightness. */
+  background: url("assets/background.png") center / cover no-repeat;
+  filter: brightness(.82);
+}
+.board-heading { position: absolute; top: -26px; left: -6px; z-index: 30; pointer-events: none; }
+#brand-logo { display: block; width: clamp(169px, 19.5vw, 364px); height: auto; object-fit: contain; object-position: left top; }
+.fog { mix-blend-mode: screen; position: absolute; inset: -25%; pointer-events: none; background: radial-gradient(ellipse, #ECEEEF80, transparent 65%); filter: blur(60px); animation: fogMove 48s ease-in-out infinite alternate; }
+.fog-two { opacity: .45; animation-duration: 65s; animation-direction: alternate-reverse; }
+@keyframes fogMove { from { transform: translate(-5%, 2%); } to { transform: translate(5%, -3%); } }
+#photo-layer, #message-layer { position: absolute; inset: 0; pointer-events: none; }
+#photo-layer { z-index: 5; }
+#message-layer { z-index: 6; }
+.memory {
+  position: absolute; border: 0; background: none; box-shadow: none; overflow: visible;
+  animation: memoryFloat var(--duration, 18s) cubic-bezier(.45, 0, .35, 1) infinite;
+  animation-delay: var(--float-delay, 0s);
+  animation-direction: var(--float-direction, normal);
+  transition: left 2.4s ease, top 2.4s ease, width 2.4s ease, height 2.4s ease;
+}
+.memory-surface {
+  position: absolute; inset: 0;
+  background: transparent;
+  mask-image: var(--water-mask); -webkit-mask-image: var(--water-mask);
+  mask-size: 100% 100%; -webkit-mask-size: 100% 100%;
+  mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat;
+}
+.memory img {
+  display: block; width: 100%; height: 100%; padding: 0; object-fit: cover; object-position: center; filter: url("#mist-duotone");
+  animation: photoMist var(--fade-duration, 48s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+.memory-surface::after { content: none; }
+.memory-caption {
+  position: absolute; left: 21%; right: 21%; bottom: 20%;
+  color: #FFFFFF; font-weight: 500; text-align: center; line-height: 1.45;
+  overflow-wrap: anywhere; text-wrap: balance; letter-spacing: .06em;
+  text-shadow: 0 1px 4px #15223d66;
+}
+@keyframes memoryFloat {
+  0%, 100% { transform: translate3d(calc(var(--travel-x) * -.3), calc(var(--travel-y) * .35), 0) rotate(calc(var(--tilt) * -.35)); }
+  26% { transform: translate3d(calc(var(--travel-x) * .5), calc(var(--travel-y) * -.5), 0) rotate(var(--tilt)); }
+  43% { transform: translate3d(calc(var(--travel-x) * .35), calc(var(--travel-y) * -.65), 0) rotate(calc(var(--tilt) * .65)); }
+  58% { transform: translate3d(calc(var(--travel-x) * -.15), calc(var(--travel-y) * -.58), 0) rotate(calc(var(--tilt) * .3)); }
+  82% { transform: translate3d(calc(var(--travel-x) * -.5), calc(var(--travel-y) * .1), 0) rotate(calc(var(--tilt) * -.7)); }
+}
+.memory-contents { position: absolute; inset: 0; transform: rotate(var(--base-angle, 0deg)); animation: memoryFade var(--fade-duration, 48s) ease-in-out var(--delay, 0s) infinite; }
+@keyframes memoryFade { 0%, 100% { opacity: 0; } 16%, 70% { opacity: .95; } 86% { opacity: .65; } }
+@keyframes photoMist { 0%, 100% { opacity: .85; } 18%, 75% { opacity: 1; } }
+.board-footer { position: absolute; left: clamp(20px, 3.5vw, 80px); bottom: 26px; z-index: 30; font-size: 9px; letter-spacing: 3px; color: #5F656D; pointer-events: none; }
+#audio-start { position: absolute; right: 28px; bottom: 18px; z-index: 40; width: auto; min-width: 44px; height: 36px; padding: 0 12px; border: 1px solid #66808f45; border-radius: 18px; background: #e4eaf0b3; color: #38596a; font-size: 12px; cursor: pointer; opacity: .65; transition: opacity .3s; }
+#audio-start:hover, #audio-start[aria-pressed="true"] { opacity: 1; }
+#audio-start:focus-visible { outline: 2px solid #5F656D; outline-offset: 3px; border-radius: 50%; }
+[hidden] { display: none !important; }
+#board-controls { position: absolute; right: 24px; top: 24px; z-index: 50; width: 240px; color: #5F656D; padding: 16px; background: rgba(245,246,247,0.72); border: 1px solid #BFC4C9; border-radius: 12px; }
+#board-controls input { width: 100%; margin-top: 10px; padding: 8px; border: 1px solid #BFC4C9; color: #5F656D; background: rgba(245,246,247,0.72); }
+#board-controls button { margin-top: 12px; padding: 8px; cursor: pointer; border: 1px solid #BFC4C9; color: #5F656D; background: rgba(245,246,247,0.72); }
+#sync-status { font-size: 12px; margin-top: 8px; }
+@media (prefers-reduced-motion: reduce) {
+  .fog, .memory, .memory img, .memory-contents { animation: none; }
+  .memory { opacity: 1; transition: none; }
+}
+
+
+
+.image-filters { position: absolute; pointer-events: none; }
+.memory.is-changing .memory-contents { animation: memoryRetire .9s ease forwards !important; }
+@keyframes memoryRetire { from { opacity: .8; } to { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .memory.is-changing .memory-contents { animation: none !important; }
+}
+
+
+
+
+
+
+
+/* Text stays outside the alpha mask; only stories expose an interactive target. */
+.memory.has-story { pointer-events: auto; cursor: pointer; touch-action: manipulation; }
+.memory.has-story:focus-visible { outline: 2px solid #00b0e4; outline-offset: 2px; border-radius: 35%; }
+.memory.is-reading, .memory.is-reading img, .is-reading-story .memory, .is-reading-story .memory-contents, .is-reading-story .memory img { animation-play-state: paused; }
+.story-reader {
+  position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none;
+  margin: 0; border: 0; padding: max(20px, env(safe-area-inset-top)) 20px;
+  background: transparent; color: #1d2184; overflow: auto;
+  opacity: 0; transition: opacity .24s ease;
+}
+.story-reader[open] { display: grid; place-items: center; }
+.story-reader.is-visible { opacity: 1; }
+.story-reader::backdrop { background: #141b303d; backdrop-filter: blur(3px); opacity: 0; transition: opacity .24s ease; }
+.story-reader.is-visible::backdrop { opacity: 1; }
+.story-reader-panel {
+  position: relative; width: min(100%, 500px); padding: 52px 36px 40px;
+  background: #f8fafbe8; border: 1px solid #ffffff80; border-radius: 24px;
+  box-shadow: 0 18px 70px #18274b24; backdrop-filter: blur(16px);
+  transform: translateY(8px); transition: transform .24s ease;
+}
+.is-visible .story-reader-panel { transform: translateY(0); }
+.story-reader-close {
+  position: absolute; top: 8px; right: 8px; width: 44px; height: 44px;
+  border: 0; background: transparent; color: #1d2184; font-size: 28px; cursor: pointer;
+}
+.story-reader-close:focus-visible { outline: 2px solid #00b0e4; border-radius: 50%; }
+.story-reader-eyebrow { color: #00b0e4; font-size: 9px; letter-spacing: .12em; margin-bottom: 22px; }
+#story-reader-title { font-size: 24px; line-height: 1.6; margin-bottom: 20px; overflow-wrap: anywhere; }
+#story-reader-body { font-size: 17px; line-height: 1.9; white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 480px) { .story-reader-panel { padding: 52px 24px 32px; } }
+@media (prefers-reduced-motion: reduce) { .story-reader, .story-reader::backdrop, .story-reader-panel { transition: none; } }
+
+.is-resizing .memory { transition: none; }
+
+/* Same-photo wash fills the round stain; the clear original retains its full aspect ratio. */
+.memory img.memory-wash { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: url("#mist-duotone") blur(10px); opacity: .52; animation: none; }
+.memory img.memory-original {
+  position: absolute; left: 0; top: 50%; width: 100%; height: auto; max-height: 100%;
+  object-fit: contain; transform: translateY(-50%);
+  mask-image: radial-gradient(ellipse closest-side, #000 57%, #000b 76%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse closest-side, #000 57%, #000b 76%, transparent 100%);
+}

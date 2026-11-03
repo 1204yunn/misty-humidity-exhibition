@@ -1,0 +1,50 @@
+/* Transparent glass optics only: no full-screen haze or painted white sheet. */
+.board-glass { position: absolute; inset: 0; z-index: 45; pointer-events: none; overflow: visible; }
+.board-glass *, .board-glass *::before, .board-glass *::after { pointer-events: none; }
+.condensation-layer, .drip-layer { position: absolute; inset: 0; overflow: visible; }
+.glass-drop {
+  position: absolute; display: block; opacity: var(--drop-alpha, .25);
+  background: radial-gradient(ellipse at 28% 22%, #ffffffc4 0%, #ffffff35 18%, transparent 46%),
+    radial-gradient(ellipse at 68% 78%, #30495d30, transparent 65%);
+  box-shadow: inset .4px .5px .6px #ffffff80, inset -.5px -.65px 1px #33485866,
+    .3px .7px 1px #344b5b24;
+}
+.glass-drop::after {
+  content: ''; position: absolute; top: 13%; left: 22%; width: 23%; height: 16%;
+  border-radius: 50%; background: #ffffffc2; transform: rotate(-28deg);
+}
+.glass-drip {
+  background: radial-gradient(ellipse at 27% 20%, #fff 0%, #ffffff70 17%, transparent 48%),
+    radial-gradient(ellipse at 65% 78%, #48647755, transparent 72%);
+  box-shadow: inset .7px .8px 1px #ffffffd9, inset -1px -1.2px 1.8px #29465a99,
+    .6px 1.2px 1.8px #324e6540;
+  animation: glassFlow var(--flow-duration) linear var(--flow-delay) infinite; }
+.glass-drip::before {
+  content: ''; position: absolute; bottom: 58%; left: 32%; width: 36%; height: var(--trail-length);
+  border-radius: 70% 45% 30% 50%;
+  background: linear-gradient(to bottom, transparent, #59778b12 35%, #a5bdcb45 75%, #ffffff8c);
+  mask-image: linear-gradient(transparent, #000 65%); -webkit-mask-image: linear-gradient(transparent, #000 65%);
+}
+@keyframes glassFlow {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  8% { opacity: var(--drop-alpha); }
+  38% { transform: translate3d(var(--flow-sway), calc(var(--flow-distance) * .32), 0); }
+  72% { transform: translate3d(0, calc(var(--flow-distance) * .66), 0); opacity: var(--drop-alpha); }
+  95% { opacity: var(--drop-alpha); }
+  100% { transform: translate3d(var(--flow-sway), var(--flow-distance), 0); opacity: 0; }
+}
+.board-glass.is-paused .glass-drip { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .glass-drip { display: none; animation: none; } }
+/* Corner moisture dissolves into the clear center without a rectangular edge. */
+.condensation-layer::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse min(34vw, 400px) min(34vh, 340px) at 0% 0%, #e6eef35c 0%, #f0f5f52e 38%, transparent 100%),
+    radial-gradient(ellipse min(34vw, 400px) min(34vh, 340px) at 100% 0%, #e6eef35c 0%, #f0f5f52e 38%, transparent 100%),
+    radial-gradient(ellipse min(34vw, 400px) min(34vh, 340px) at 0% 100%, #e6eef35c 0%, #f0f5f52e 38%, transparent 100%),
+    radial-gradient(ellipse min(34vw, 400px) min(34vh, 340px) at 100% 100%, #e6eef35c 0%, #f0f5f52e 38%, transparent 100%);
+}
+.glass-corner-bead {
+  box-shadow: inset .65px .8px 1px #ffffffa6, inset -.75px -.9px 1.2px #33485873,
+    .4px .8px 1.3px #344b5b30;
+}
